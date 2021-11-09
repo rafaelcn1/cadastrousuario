@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "htth://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/_template.xhtml">
+	<ui:define name="cabecalho">
+		Usuários Cadastrados
+		
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="formUsuariosCadastrados">
+
+			<p:fieldset legend="Usuários Cadastrados">
+				<p:dataTable value="#{usuarioBean.listarTodos()}" var="usuario"
+					id="tabelaUsuariosCadastrado" paginator="true" rows="10"
+					emptyMessage="Nenhum usuário cadastrado!">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nome" />
+						</f:facet>
+						<h:outputText value="#{usuario.nome}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Email" />
+						</f:facet>
+						<h:outputText value="#{usuario.email}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Editar" />
+						</f:facet>
+						<p:commandLink value="Editar" process="@this"
+							actionListener="#{usuarioBean.buscar(usuario)}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Excluir" />
+						</f:facet>
+						<p:commandLink value="Excluir" process="@this"
+							actionListener="#{usuarioBean.excluir(usuario)}"
+							update="tabelaUsuariosCadastrado" />
+					</p:column>
+
+				</p:dataTable>
+			</p:fieldset>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

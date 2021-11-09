@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "htth://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/_template.xhtml">
+	<ui:define name="cabecalho">
+		Cadastro de Usuário
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="formUsuario">
+
+			<p:fieldset legend=" Dados doUsuário">
+				<p:panelGrid columns="6">
+					<p:outputLabel value="Nome: " for="nome" />
+					<p:inputText value="#{usuarioBean.usuario.nome}" id="nome" />
+					<p:outputLabel value="Email: " for="email" />
+					<p:inputText value="#{usuarioBean.usuario.email}" id="email" />
+					<p:outputLabel value="Senha: " for="senha" />
+					<p:inputText value="#{usuarioBean.usuario.senha}" id="senha" />
+				</p:panelGrid>
+			</p:fieldset>
+
+			<br />
+
+			<p:fieldset legend="Contato">
+				<p:outputPanel id="panelContato">
+					<p:panelGrid columns="7">
+
+						<p:outputLabel value="DDD:" for="ddd" />
+						<p:inputText value="#{usuarioBean.telefone.ddd}" id="ddd" />
+
+						<p:outputLabel value="Número:" for="numero" />
+						<p:inputText value="#{usuarioBean.telefone.numero}" id="numero" />
+
+						<p:outputLabel value="Tipo:" for="tipo" />
+						<p:inputText value="#{usuarioBean.telefone.tipo}" id="tipo" />
+
+						<p:commandButton value="Cadastrar Contato"
+							action="#{usuarioBean.cadastrarContato()}"
+							update="tabelaTelefonesDoUsuario panelContato" />
+
+					</p:panelGrid>
+				</p:outputPanel>
+				<br />
+
+				<p:dataTable value="#{usuarioBean.telefones}" var="telefone"
+					id="tabelaTelefonesDoUsuario"
+					emptyMessage="Nenhum telefone cadastrado!">
+					<f:facet name="header">
+						<h:outputText value="Telefones do Usuário" />
+					</f:facet>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="DDD" />
+						</f:facet>
+						<h:outputText value="#{telefone.ddd}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Número" />
+						</f:facet>
+						<h:outputText value="#{telefone.numero}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Tipo" />
+						</f:facet>
+						<h:outputText value="#{telefone.tipo}" />
+					</p:column>
+
+				</p:dataTable>
+			</p:fieldset>
+
+			<br />
+
+			<p:commandButton value="Cadastrar" action="#{usuarioBean.incluir()}"
+				update="formUsuario">
+			</p:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
